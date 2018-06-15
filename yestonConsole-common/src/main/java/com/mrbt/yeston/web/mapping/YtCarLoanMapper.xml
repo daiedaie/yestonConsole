@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mrbt.yeston.web.mapper.YtCarLoanMapper" >
+  <resultMap id="BaseResultMap" type="com.mrbt.yeston.web.model.YtCarLoan" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="plate_number" property="plateNumber" jdbcType="VARCHAR" />
+    <result column="vehicle_ownership" property="vehicleOwnership" jdbcType="INTEGER" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="whether_operation" property="whetherOperation" jdbcType="INTEGER" />
+    <result column="vehicle_type" property="vehicleType" jdbcType="VARCHAR" />
+    <result column="vehicle_life" property="vehicleLife" jdbcType="INTEGER" />
+    <result column="kilometers" property="kilometers" jdbcType="DOUBLE" />
+    <result column="loan_amount" property="loanAmount" jdbcType="DOUBLE" />
+    <result column="loan_term" property="loanTerm" jdbcType="INTEGER" />
+    <result column="single_double_charge" property="singleDoubleCharge" jdbcType="INTEGER" />
+    <result column="dollars_number" property="dollarsNumber" jdbcType="INTEGER" />
+    <result column="one_dollars_name" property="oneDollarsName" jdbcType="VARCHAR" />
+    <result column="repayment_method" property="repaymentMethod" jdbcType="INTEGER" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="travel_book" property="travelBook" jdbcType="VARCHAR" />
+    <result column="document_type" property="documentType" jdbcType="INTEGER" />
+    <result column="idcard_license" property="idcardLicense" jdbcType="VARCHAR" />
+    <result column="vehicle_evaluation_report" property="vehicleEvaluationReport" jdbcType="VARCHAR" />
+    <result column="loan_agreement" property="loanAgreement" jdbcType="VARCHAR" />
+    <result column="vehicle_certificate" property="vehicleCertificate" jdbcType="VARCHAR" />
+    <result column="vehicle_tax_certificate" property="vehicleTaxCertificate" jdbcType="VARCHAR" />
+    <result column="vehical_invoice" property="vehicalInvoice" jdbcType="VARCHAR" />
+    <result column="vehical_photo" property="vehicalPhoto" jdbcType="VARCHAR" />
+    <result column="loan_contract" property="loanContract" jdbcType="VARCHAR" />
+    <result column="iou" property="iou" jdbcType="VARCHAR" />
+    <result column="capital_requirement" property="capitalRequirement" jdbcType="VARCHAR" />
+    <result column="policy" property="policy" jdbcType="VARCHAR" />
+    <result column="vehicle_inventory" property="vehicleInventory" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="cooperate_id" property="cooperateId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="est_rep_amount" property="estRepAmount" jdbcType="DOUBLE" />
+    <result column="act_rep_amount" property="actRepAmount" jdbcType="DOUBLE" />
+    <result column="loan_time" property="loanTime" jdbcType="TIMESTAMP" />
+    <result column="business_type" property="businessType" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, plate_number, vehicle_ownership, owner_name, whether_operation, vehicle_type, 
+      vehicle_life, kilometers, loan_amount, loan_term, single_double_charge, dollars_number, 
+      one_dollars_name, repayment_method, rate, travel_book, document_type, idcard_license, 
+      vehicle_evaluation_report, loan_agreement, vehicle_certificate, vehicle_tax_certificate, 
+      vehical_invoice, vehical_photo, loan_contract, iou, capital_requirement, policy, 
+      vehicle_inventory, status, cooperate_id, user_id, est_rep_amount, act_rep_amount, 
+      loan_time, business_type, product_id, start_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mrbt.yeston.web.model.YtCarLoanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yt_car_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    id,plate_number,vehicle_ownership,owner_name,whether_operation,vehicle_type,vehicle_life,kilometers,loan_amount,loan_term,single_double_charge,dollars_number,one_dollars_name,repayment_method,rate,travel_book,document_type,idcard_license,vehicle_evaluation_report,loan_agreement,vehicle_certificate,vehicle_tax_certificate,vehical_invoice,vehical_photo,loan_contract,iou,capital_requirement,policy,vehicle_inventory,status,cooperate_id,user_id,est_rep_amount,act_rep_amount,loan_time,business_type,product_id,start_time
+    from yt_car_loan
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yt_car_loan
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mrbt.yeston.web.model.YtCarLoanExample" >
+    delete from yt_car_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mrbt.yeston.web.model.YtCarLoan" >
+    insert into yt_car_loan (id, plate_number, vehicle_ownership, 
+      owner_name, whether_operation, vehicle_type, 
+      vehicle_life, kilometers, loan_amount, 
+      loan_term, single_double_charge, dollars_number, 
+      one_dollars_name, repayment_method, rate, 
+      travel_book, document_type, idcard_license, 
+      vehicle_evaluation_report, loan_agreement, 
+      vehicle_certificate, vehicle_tax_certificate, 
+      vehical_invoice, vehical_photo, loan_contract, 
+      iou, capital_requirement, policy, 
+      vehicle_inventory, status, cooperate_id, 
+      user_id, est_rep_amount, act_rep_amount, 
+      loan_time, business_type, product_id, 
+      start_time)
+    values (#{id,jdbcType=VARCHAR}, #{plateNumber,jdbcType=VARCHAR}, #{vehicleOwnership,jdbcType=INTEGER}, 
+      #{ownerName,jdbcType=VARCHAR}, #{whetherOperation,jdbcType=INTEGER}, #{vehicleType,jdbcType=VARCHAR}, 
+      #{vehicleLife,jdbcType=INTEGER}, #{kilometers,jdbcType=DOUBLE}, #{loanAmount,jdbcType=DOUBLE}, 
+      #{loanTerm,jdbcType=INTEGER}, #{singleDoubleCharge,jdbcType=INTEGER}, #{dollarsNumber,jdbcType=INTEGER}, 
+      #{oneDollarsName,jdbcType=VARCHAR}, #{repaymentMethod,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE}, 
+      #{travelBook,jdbcType=VARCHAR}, #{documentType,jdbcType=INTEGER}, #{idcardLicense,jdbcType=VARCHAR}, 
+      #{vehicleEvaluationReport,jdbcType=VARCHAR}, #{loanAgreement,jdbcType=VARCHAR}, 
+      #{vehicleCertificate,jdbcType=VARCHAR}, #{vehicleTaxCertificate,jdbcType=VARCHAR}, 
+      #{vehicalInvoice,jdbcType=VARCHAR}, #{vehicalPhoto,jdbcType=VARCHAR}, #{loanContract,jdbcType=VARCHAR}, 
+      #{iou,jdbcType=VARCHAR}, #{capitalRequirement,jdbcType=VARCHAR}, #{policy,jdbcType=VARCHAR}, 
+      #{vehicleInventory,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{cooperateId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{estRepAmount,jdbcType=DOUBLE}, #{actRepAmount,jdbcType=DOUBLE}, 
+      #{loanTime,jdbcType=TIMESTAMP}, #{businessType,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mrbt.yeston.web.model.YtCarLoan" >
+    insert into yt_car_loan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="plateNumber != null" >
+        plate_number,
+      </if>
+      <if test="vehicleOwnership != null" >
+        vehicle_ownership,
+      </if>
+      <if test="ownerName != null" >
+        owner_name,
+      </if>
+      <if test="whetherOperation != null" >
+        whether_operation,
+      </if>
+      <if test="vehicleType != null" >
+        vehicle_type,
+      </if>
+      <if test="vehicleLife != null" >
+        vehicle_life,
+      </if>
+      <if test="kilometers != null" >
+        kilometers,
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount,
+      </if>
+      <if test="loanTerm != null" >
+        loan_term,
+      </if>
+      <if test="singleDoubleCharge != null" >
+        single_double_charge,
+      </if>
+      <if test="dollarsNumber != null" >
+        dollars_number,
+      </if>
+      <if test="oneDollarsName != null" >
+        one_dollars_name,
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="travelBook != null" >
+        travel_book,
+      </if>
+      <if test="documentType != null" >
+        document_type,
+      </if>
+      <if test="idcardLicense != null" >
+        idcard_license,
+      </if>
+      <if test="vehicleEvaluationReport != null" >
+        vehicle_evaluation_report,
+      </if>
+      <if test="loanAgreement != null" >
+        loan_agreement,
+      </if>
+      <if test="vehicleCertificate != null" >
+        vehicle_certificate,
+      </if>
+      <if test="vehicleTaxCertificate != null" >
+        vehicle_tax_certificate,
+      </if>
+      <if test="vehicalInvoice != null" >
+        vehical_invoice,
+      </if>
+      <if test="vehicalPhoto != null" >
+        vehical_photo,
+      </if>
+      <if test="loanContract != null" >
+        loan_contract,
+      </if>
+      <if test="iou != null" >
+        iou,
+      </if>
+      <if test="capitalRequirement != null" >
+        capital_requirement,
+      </if>
+      <if test="policy != null" >
+        policy,
+      </if>
+      <if test="vehicleInventory != null" >
+        vehicle_inventory,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="cooperateId != null" >
+        cooperate_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="estRepAmount != null" >
+        est_rep_amount,
+      </if>
+      <if test="actRepAmount != null" >
+        act_rep_amount,
+      </if>
+      <if test="loanTime != null" >
+        loan_time,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null" >
+        #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleOwnership != null" >
+        #{vehicleOwnership,jdbcType=INTEGER},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherOperation != null" >
+        #{whetherOperation,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null" >
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLife != null" >
+        #{vehicleLife,jdbcType=INTEGER},
+      </if>
+      <if test="kilometers != null" >
+        #{kilometers,jdbcType=DOUBLE},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="loanTerm != null" >
+        #{loanTerm,jdbcType=INTEGER},
+      </if>
+      <if test="singleDoubleCharge != null" >
+        #{singleDoubleCharge,jdbcType=INTEGER},
+      </if>
+      <if test="dollarsNumber != null" >
+        #{dollarsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="oneDollarsName != null" >
+        #{oneDollarsName,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        #{repaymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="travelBook != null" >
+        #{travelBook,jdbcType=VARCHAR},
+      </if>
+      <if test="documentType != null" >
+        #{documentType,jdbcType=INTEGER},
+      </if>
+      <if test="idcardLicense != null" >
+        #{idcardLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleEvaluationReport != null" >
+        #{vehicleEvaluationReport,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAgreement != null" >
+        #{loanAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleCertificate != null" >
+        #{vehicleCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTaxCertificate != null" >
+        #{vehicleTaxCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicalInvoice != null" >
+        #{vehicalInvoice,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicalPhoto != null" >
+        #{vehicalPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="loanContract != null" >
+        #{loanContract,jdbcType=VARCHAR},
+      </if>
+      <if test="iou != null" >
+        #{iou,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalRequirement != null" >
+        #{capitalRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="policy != null" >
+        #{policy,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleInventory != null" >
+        #{vehicleInventory,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cooperateId != null" >
+        #{cooperateId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="estRepAmount != null" >
+        #{estRepAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="actRepAmount != null" >
+        #{actRepAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="loanTime != null" >
+        #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mrbt.yeston.web.model.YtCarLoanExample" resultType="java.lang.Integer" >
+    select count(*) from yt_car_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yt_car_loan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateNumber != null" >
+        plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleOwnership != null" >
+        vehicle_ownership = #{record.vehicleOwnership,jdbcType=INTEGER},
+      </if>
+      <if test="record.ownerName != null" >
+        owner_name = #{record.ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.whetherOperation != null" >
+        whether_operation = #{record.whetherOperation,jdbcType=INTEGER},
+      </if>
+      <if test="record.vehicleType != null" >
+        vehicle_type = #{record.vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleLife != null" >
+        vehicle_life = #{record.vehicleLife,jdbcType=INTEGER},
+      </if>
+      <if test="record.kilometers != null" >
+        kilometers = #{record.kilometers,jdbcType=DOUBLE},
+      </if>
+      <if test="record.loanAmount != null" >
+        loan_amount = #{record.loanAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.loanTerm != null" >
+        loan_term = #{record.loanTerm,jdbcType=INTEGER},
+      </if>
+      <if test="record.singleDoubleCharge != null" >
+        single_double_charge = #{record.singleDoubleCharge,jdbcType=INTEGER},
+      </if>
+      <if test="record.dollarsNumber != null" >
+        dollars_number = #{record.dollarsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.oneDollarsName != null" >
+        one_dollars_name = #{record.oneDollarsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaymentMethod != null" >
+        repayment_method = #{record.repaymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.travelBook != null" >
+        travel_book = #{record.travelBook,jdbcType=VARCHAR},
+      </if>
+      <if test="record.documentType != null" >
+        document_type = #{record.documentType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardLicense != null" >
+        idcard_license = #{record.idcardLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleEvaluationReport != null" >
+        vehicle_evaluation_report = #{record.vehicleEvaluationReport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanAgreement != null" >
+        loan_agreement = #{record.loanAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleCertificate != null" >
+        vehicle_certificate = #{record.vehicleCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleTaxCertificate != null" >
+        vehicle_tax_certificate = #{record.vehicleTaxCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicalInvoice != null" >
+        vehical_invoice = #{record.vehicalInvoice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicalPhoto != null" >
+        vehical_photo = #{record.vehicalPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanContract != null" >
+        loan_contract = #{record.loanContract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iou != null" >
+        iou = #{record.iou,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capitalRequirement != null" >
+        capital_requirement = #{record.capitalRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.policy != null" >
+        policy = #{record.policy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleInventory != null" >
+        vehicle_inventory = #{record.vehicleInventory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.cooperateId != null" >
+        cooperate_id = #{record.cooperateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.estRepAmount != null" >
+        est_rep_amount = #{record.estRepAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.actRepAmount != null" >
+        act_rep_amount = #{record.actRepAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.loanTime != null" >
+        loan_time = #{record.loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yt_car_loan
+    set id = #{record.id,jdbcType=VARCHAR},
+      plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      vehicle_ownership = #{record.vehicleOwnership,jdbcType=INTEGER},
+      owner_name = #{record.ownerName,jdbcType=VARCHAR},
+      whether_operation = #{record.whetherOperation,jdbcType=INTEGER},
+      vehicle_type = #{record.vehicleType,jdbcType=VARCHAR},
+      vehicle_life = #{record.vehicleLife,jdbcType=INTEGER},
+      kilometers = #{record.kilometers,jdbcType=DOUBLE},
+      loan_amount = #{record.loanAmount,jdbcType=DOUBLE},
+      loan_term = #{record.loanTerm,jdbcType=INTEGER},
+      single_double_charge = #{record.singleDoubleCharge,jdbcType=INTEGER},
+      dollars_number = #{record.dollarsNumber,jdbcType=INTEGER},
+      one_dollars_name = #{record.oneDollarsName,jdbcType=VARCHAR},
+      repayment_method = #{record.repaymentMethod,jdbcType=INTEGER},
+      rate = #{record.rate,jdbcType=DOUBLE},
+      travel_book = #{record.travelBook,jdbcType=VARCHAR},
+      document_type = #{record.documentType,jdbcType=INTEGER},
+      idcard_license = #{record.idcardLicense,jdbcType=VARCHAR},
+      vehicle_evaluation_report = #{record.vehicleEvaluationReport,jdbcType=VARCHAR},
+      loan_agreement = #{record.loanAgreement,jdbcType=VARCHAR},
+      vehicle_certificate = #{record.vehicleCertificate,jdbcType=VARCHAR},
+      vehicle_tax_certificate = #{record.vehicleTaxCertificate,jdbcType=VARCHAR},
+      vehical_invoice = #{record.vehicalInvoice,jdbcType=VARCHAR},
+      vehical_photo = #{record.vehicalPhoto,jdbcType=VARCHAR},
+      loan_contract = #{record.loanContract,jdbcType=VARCHAR},
+      iou = #{record.iou,jdbcType=VARCHAR},
+      capital_requirement = #{record.capitalRequirement,jdbcType=VARCHAR},
+      policy = #{record.policy,jdbcType=VARCHAR},
+      vehicle_inventory = #{record.vehicleInventory,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      cooperate_id = #{record.cooperateId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      est_rep_amount = #{record.estRepAmount,jdbcType=DOUBLE},
+      act_rep_amount = #{record.actRepAmount,jdbcType=DOUBLE},
+      loan_time = #{record.loanTime,jdbcType=TIMESTAMP},
+      business_type = #{record.businessType,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mrbt.yeston.web.model.YtCarLoan" >
+    update yt_car_loan
+    <set >
+      <if test="plateNumber != null" >
+        plate_number = #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleOwnership != null" >
+        vehicle_ownership = #{vehicleOwnership,jdbcType=INTEGER},
+      </if>
+      <if test="ownerName != null" >
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherOperation != null" >
+        whether_operation = #{whetherOperation,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null" >
+        vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLife != null" >
+        vehicle_life = #{vehicleLife,jdbcType=INTEGER},
+      </if>
+      <if test="kilometers != null" >
+        kilometers = #{kilometers,jdbcType=DOUBLE},
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount = #{loanAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="loanTerm != null" >
+        loan_term = #{loanTerm,jdbcType=INTEGER},
+      </if>
+      <if test="singleDoubleCharge != null" >
+        single_double_charge = #{singleDoubleCharge,jdbcType=INTEGER},
+      </if>
+      <if test="dollarsNumber != null" >
+        dollars_number = #{dollarsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="oneDollarsName != null" >
+        one_dollars_name = #{oneDollarsName,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method = #{repaymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="travelBook != null" >
+        travel_book = #{travelBook,jdbcType=VARCHAR},
+      </if>
+      <if test="documentType != null" >
+        document_type = #{documentType,jdbcType=INTEGER},
+      </if>
+      <if test="idcardLicense != null" >
+        idcard_license = #{idcardLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleEvaluationReport != null" >
+        vehicle_evaluation_report = #{vehicleEvaluationReport,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAgreement != null" >
+        loan_agreement = #{loanAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleCertificate != null" >
+        vehicle_certificate = #{vehicleCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTaxCertificate != null" >
+        vehicle_tax_certificate = #{vehicleTaxCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicalInvoice != null" >
+        vehical_invoice = #{vehicalInvoice,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicalPhoto != null" >
+        vehical_photo = #{vehicalPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="loanContract != null" >
+        loan_contract = #{loanContract,jdbcType=VARCHAR},
+      </if>
+      <if test="iou != null" >
+        iou = #{iou,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalRequirement != null" >
+        capital_requirement = #{capitalRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="policy != null" >
+        policy = #{policy,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleInventory != null" >
+        vehicle_inventory = #{vehicleInventory,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cooperateId != null" >
+        cooperate_id = #{cooperateId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="estRepAmount != null" >
+        est_rep_amount = #{estRepAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="actRepAmount != null" >
+        act_rep_amount = #{actRepAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="loanTime != null" >
+        loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mrbt.yeston.web.model.YtCarLoan" >
+    update yt_car_loan
+    set plate_number = #{plateNumber,jdbcType=VARCHAR},
+      vehicle_ownership = #{vehicleOwnership,jdbcType=INTEGER},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      whether_operation = #{whetherOperation,jdbcType=INTEGER},
+      vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      vehicle_life = #{vehicleLife,jdbcType=INTEGER},
+      kilometers = #{kilometers,jdbcType=DOUBLE},
+      loan_amount = #{loanAmount,jdbcType=DOUBLE},
+      loan_term = #{loanTerm,jdbcType=INTEGER},
+      single_double_charge = #{singleDoubleCharge,jdbcType=INTEGER},
+      dollars_number = #{dollarsNumber,jdbcType=INTEGER},
+      one_dollars_name = #{oneDollarsName,jdbcType=VARCHAR},
+      repayment_method = #{repaymentMethod,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=DOUBLE},
+      travel_book = #{travelBook,jdbcType=VARCHAR},
+      document_type = #{documentType,jdbcType=INTEGER},
+      idcard_license = #{idcardLicense,jdbcType=VARCHAR},
+      vehicle_evaluation_report = #{vehicleEvaluationReport,jdbcType=VARCHAR},
+      loan_agreement = #{loanAgreement,jdbcType=VARCHAR},
+      vehicle_certificate = #{vehicleCertificate,jdbcType=VARCHAR},
+      vehicle_tax_certificate = #{vehicleTaxCertificate,jdbcType=VARCHAR},
+      vehical_invoice = #{vehicalInvoice,jdbcType=VARCHAR},
+      vehical_photo = #{vehicalPhoto,jdbcType=VARCHAR},
+      loan_contract = #{loanContract,jdbcType=VARCHAR},
+      iou = #{iou,jdbcType=VARCHAR},
+      capital_requirement = #{capitalRequirement,jdbcType=VARCHAR},
+      policy = #{policy,jdbcType=VARCHAR},
+      vehicle_inventory = #{vehicleInventory,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      cooperate_id = #{cooperateId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      est_rep_amount = #{estRepAmount,jdbcType=DOUBLE},
+      act_rep_amount = #{actRepAmount,jdbcType=DOUBLE},
+      loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      business_type = #{businessType,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

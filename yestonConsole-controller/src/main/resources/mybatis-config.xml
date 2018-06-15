@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="aggressiveLazyLoading" value="true" />
+		<setting name="logImpl" value="LOG4J2" />
+	</settings>
+
+	<!-- 进行mybatis 配置 -->
+	<typeAliases>
+		<!-- 为类型 起了别名 -->
+		<typeAlias type="com.mrbt.yeston.admin.commons.utils.PageInfo" alias="PageInfo" />
+		
+		<!-- 后台权限管理 -->
+		<typeAlias type="com.mrbt.yeston.admin.model.User" alias="User" />
+		<typeAlias type="com.mrbt.yeston.admin.commons.result.UserVo" alias="UserVo" />
+		<typeAlias type="com.mrbt.yeston.admin.model.Resource" alias="Resource" />
+		<typeAlias type="com.mrbt.yeston.admin.model.Role" alias="Role" />
+		<typeAlias type="com.mrbt.yeston.admin.model.Organization" alias="Organization" />
+		<typeAlias type="com.mrbt.yeston.admin.model.SysLog" alias="SysLog" />
+		
+	</typeAliases>
+
+</configuration> 

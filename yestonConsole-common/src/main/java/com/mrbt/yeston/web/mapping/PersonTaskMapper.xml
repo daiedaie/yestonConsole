@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrbt.yeston.web.mapper.PersonTaskMapper" >
+
+	<select id="findUserNameById" parameterType="Integer" resultType="String">
+		select name from user where id = #{uid}
+	</select>
+
+	<select id="findBranchCheckUserByBusinessKey" resultType="Integer">
+		SELECT u.id
+		FROM user u INNER JOIN user_role ur on u.id = ur.user_id
+			INNER JOIN role r on ur.role_id = r.id
+		where r.`name` = '分公司审核' And u.id != #{uId}
+			AND u.organization_id = (SELECT o.pid
+									FROM yt_car_loan ycl INNER JOIN yt_cooperative_main ycm on ycl.cooperate_id = ycm.id
+										INNER JOIN organization o on ycm.dept_id = o.id
+									WHERE ycl.id = #{carLoanId})
+	</select>
+	
+	<select id="findCooperateFinanceByCooperateId" parameterType="String" resultType="Integer">
+		SELECT u.id
+		FROM `user` u INNER JOIN user_role ur on u.id = ur.user_id
+			INNER JOIN role r on ur.role_id = r.id
+		WHERE r.`name` = '供应商财务'
+			AND u.organization_id = (SELECT ycm.dept_id FROM yt_cooperative_main ycm WHERE ycm.id = #{cooperateId})
+	</select>
+	
+	<select id="findBankInfo" resultType="com.mrbt.yeston.web.vo.YtBankInfoVo">
+		select ybi.id,ybat.bat_name typeName,ybi.bank_account_name accountName,ybi.bank
+		from yt_bank_info ybi inner join yt_bank_account_type ybat on ybi.type = ybat.id
+		where ybi.type != 1 and ybi.status = 1
+	</select>
+	<select id="findBankInfoByCoopearateId" parameterType="String" resultType="com.mrbt.yeston.web.vo.YtBankInfoVo">
+		select ybi.id,ybat.bat_name typeName,ybi.bank_account_name accountName,ybi.bank
+		from yt_bank_info ybi inner join yt_bank_account_type ybat on ybi.type = ybat.id
+		where ybi.cooperative_id = #{coopearateId} and ybi.status = 1
+	</select>
+	
+	<select id="findCoopearateIdByCarLoanId" parameterType="String" resultType="String">
+		select ycl.cooperate_id from yt_car_loan ycl where ycl.id = #{carLoanId}
+	</select>
+</mapper>

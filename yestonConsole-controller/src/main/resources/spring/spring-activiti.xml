@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+            
+	<!-- 使用工厂创建流程引擎对象 -->
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<!-- 注册Service -->
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService">
+	</bean>
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService">
+	</bean>
+	<bean id="taskActivitiService" factory-bean="processEngine" factory-method="getTaskService">
+	</bean>
+	<bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService">
+	</bean>
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService">
+	</bean>
+	
+</beans>

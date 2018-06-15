@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrbt.yeston.web.mapper.YtCarLoanCustomMapper" >
+	
+	<select id="findUserNameById" parameterType="Integer" resultType="String">
+		select u.loginname from user u where u.id = #{userId}
+	</select>
+
+	<select id="findDeptNumberByUserId" parameterType="Integer" resultType="String">
+		SELECT o.code FROM organization o WHERE o.id = 
+			(SELECT u.organization_id from user u where u.id = #{userId})
+	</select>
+
+	<select id="findPDeptNameByUserId" parameterType="Integer" resultType="String">
+		SELECT o.name from organization o where id = 
+			(SELECT o.pid FROM organization o inner join user u on o.id = u.organization_id where u.id = #{userId})
+	</select>
+
+	<select id="findDeptByPid" parameterType="Integer" resultType="com.mrbt.yeston.web.vo.DeptVo">
+		select id,name,pid from organization where pid = #{pid}
+	</select>
+
+	<select id="findDeptById" parameterType="Integer" resultType="com.mrbt.yeston.web.vo.DeptVo">
+		select id,name,pid from organization where id = #{deptId}
+	</select>
+	
+	<select id="findDeptList" resultType="com.mrbt.yeston.web.vo.DeptTree">
+		select id,name text,pid parentId from organization where id != 1
+	</select>
+	
+	<select id="findCooperateIdByDeptId" parameterType="Integer" resultType="String" >
+		select ycm.id 
+		from user u inner join yt_cooperative_main ycm on u.organization_id = ycm.dept_id
+		where u.id = #{userId} and ycm.status = 1
+	</select>
+	
+	<select id="findUserList" resultType="com.mrbt.yeston.web.vo.ApplyUser">
+		select u.id,u.name
+		from user u inner join user_role ur on u.id = ur.user_id
+			inner join role r on ur.role_id = r.id
+		where r.name = '供应商申请人'
+	</select>
+	
+	<select id="findStatusList" resultType="com.mrbt.yeston.web.vo.DataStatus">
+		select id,name from data_status
+	</select>
+
+	<select id="findBycondition" parameterType="com.mrbt.yeston.admin.commons.utils.PageInfo" 
+		resultType="com.mrbt.yeston.web.vo.YtCarLoanInfoVo">
+		select ycl.id,ycl.plate_number plateNumber,ycl.owner_name ownerName,ycl.vehicle_type vehicleType,
+			ycl.loan_amount loanAmount,ycl.loan_term loanTerm,ycl.rate,u.name userName,ycl.business_type businessType,
+			ycm.name cooperateName,ycm.region_name regionName,ycl.start_time startTime,ycl.product_id productId,
+			ycl.est_rep_amount estRepAmount,ycl.act_rep_amount actRepAmount,ds.name status
+		from yt_car_loan ycl inner join yt_cooperative_main ycm on ycl.cooperate_id = ycm.id
+			inner join user u on ycl.user_id = u.id
+			inner join data_status ds on ds.id = ycl.status
+		<where>
+			<if test="condition.deptId != null">
+                and ycm.dept_id = #{condition.deptId}
+            </if>
+            <if test="condition.deptIds != null">
+                and ycm.dept_id in 
+                <foreach collection="condition.deptIds" open="(" close=")" separator="," item="ids">
+					#{ids}
+				</foreach>
+            </if>
+            <if test="condition.notCooperate != null">
+                and ycl.status != 1
+            </if>
+			<if test="condition.status != null">
+                and ycl.status = #{condition.status}
+            </if>
+            <if test="condition.startTime != null">
+                and ycl.start_time >= #{condition.startTime}
+            </if>
+            <if test="condition.endTime != null">
+                <![CDATA[and ycl.start_time <= #{condition.endTime}]]>
+            </if>
+            <if test="condition.loanAmountMin != null">
+                and ycl.loan_amount >= #{condition.loanAmountMin}
+            </if>
+            <if test="condition.loanAmountMax != null">
+                <![CDATA[and ycl.loan_amount <= #{condition.loanAmountMax}]]>
+            </if>
+            <if test="condition.loanTernMin != null">
+                and ycl.loan_term >= #{condition.loanTernMin}
+            </if>
+            <if test="condition.loanTernMax != null">
+                <![CDATA[and ycl.loan_term <= #{condition.loanTernMax}]]>
+            </if>
+        	<if test="condition.plateNumber != null">
+                and ycl.plate_number like concat('%',#{condition.plateNumber},'%')
+            </if>
+            <if test="condition.deptId != null">
+                and ycm.dept_id = #{condition.deptId}
+            </if>
+            <if test="condition.userId != null">
+                and ycl.user_id = #{condition.userId}
+            </if>
+            <if test="condition.vehicleType != null">
+                and ycl.vehicle_type like concat('%',#{condition.vehicleType},'%')
+            </if>
+            <if test="condition.ownerName != null">
+                and ycl.owner_name like concat('%',#{condition.ownerName},'%')
+            </if>
+        </where>
+        LIMIT #{from}, #{size}
+	</select>
+	<select id="countBycondition" parameterType="com.mrbt.yeston.admin.commons.utils.PageInfo" resultType="int">
+		select count(1)
+		from yt_car_loan ycl inner join yt_cooperative_main ycm on ycl.cooperate_id = ycm.id
+			inner join user u on ycl.user_id = u.id
+			inner join data_status ds on ds.id = ycl.status
+		<where>
+			<if test="condition.deptId != null">
+                and ycm.dept_id = #{condition.deptId}
+            </if>
+            <if test="condition.deptIds != null">
+                and ycm.dept_id in 
+                <foreach collection="condition.deptIds" open="(" close=")" separator="," item="ids">
+					#{ids}
+				</foreach>
+            </if>
+            <if test="condition.notCooperate != null">
+                and ycl.status != 1
+            </if>
+			<if test="condition.status != null">
+                and ycl.status = #{condition.status}
+            </if>
+            <if test="condition.startTime != null">
+                and ycl.start_time >= #{condition.startTime}
+            </if>
+            <if test="condition.endTime != null">
+                <![CDATA[and ycl.start_time <= #{condition.endTime}]]>
+            </if>
+            <if test="condition.loanAmountMin != null">
+                and ycl.loan_amount >= #{condition.loanAmountMin}
+            </if>
+            <if test="condition.loanAmountMax != null">
+                <![CDATA[and ycl.loan_amount <= #{condition.loanAmountMax}]]>
+            </if>
+            <if test="condition.loanTernMin != null">
+                and ycl.loan_term >= #{condition.loanTernMin}
+            </if>
+            <if test="condition.loanTernMax != null">
+                <![CDATA[and ycl.loan_term <= #{condition.loanTernMax}]]>
+            </if>
+        	<if test="condition.plateNumber != null">
+                and ycl.plate_number like concat('%',#{condition.plateNumber},'%')
+            </if>
+            <if test="condition.deptId != null">
+                and ycm.dept_id = #{condition.deptId}
+            </if>
+            <if test="condition.userId != null">
+                and ycl.user_id = #{condition.userId}
+            </if>
+            <if test="condition.vehicleType != null">
+                and ycl.vehicle_type like concat('%',#{condition.vehicleType},'%')
+            </if>
+            <if test="condition.ownerName != null">
+                and ycl.owner_name like concat('%',#{condition.ownerName},'%')
+            </if>
+        </where>
+	</select>
+</mapper>

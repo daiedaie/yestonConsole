@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
+            http://www.springframework.org/schema/mvc  
+            http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+    <bean id="ftpUtils" class="com.mrbt.yeston.admin.commons.utils.FtpUtils">
+    	<!-- 
+    	<property name="host" value="192.168.1.89"></property>
+    	<property name="port" value="21"></property>
+    	<property name="user_name" value="lingqian"></property>
+    	<property name="user_pwd" value="123qwe"></property>
+    	<property name="url" value="http://static.lingmoney.com.cn/"></property>
+    	 -->
+    	
+    	<property name="host" value="10.20.1.88"></property>
+    	<property name="port" value="21"></property>
+    	<property name="user_name" value="lingqian"></property>
+    	<property name="user_pwd" value="123qwe"></property>
+    	<property name="url" value="http://192.168.1.88/"></property>
+    </bean>
+</beans>

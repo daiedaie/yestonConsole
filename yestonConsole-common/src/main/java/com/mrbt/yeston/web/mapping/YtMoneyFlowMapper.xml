@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mrbt.yeston.web.mapper.YtMoneyFlowMapper" >
+  <resultMap id="BaseResultMap" type="com.mrbt.yeston.web.model.YtMoneyFlow" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="car_loan_id" property="carLoanId" jdbcType="VARCHAR" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="from_account" property="fromAccount" jdbcType="VARCHAR" />
+    <result column="from_account_name" property="fromAccountName" jdbcType="VARCHAR" />
+    <result column="from_account_bank_name" property="fromAccountBankName" jdbcType="VARCHAR" />
+    <result column="to_account" property="toAccount" jdbcType="VARCHAR" />
+    <result column="to_account_name" property="toAccountName" jdbcType="VARCHAR" />
+    <result column="to_account_bank_name" property="toAccountBankName" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, car_loan_id, task_name, u_id, from_account, from_account_name, from_account_bank_name, 
+      to_account, to_account_name, to_account_bank_name, money, add_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mrbt.yeston.web.model.YtMoneyFlowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yt_money_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    id,car_loan_id,task_name,u_id,from_account,from_account_name,from_account_bank_name,to_account,to_account_name,to_account_bank_name,money,add_time
+    from yt_money_flow
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yt_money_flow
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mrbt.yeston.web.model.YtMoneyFlowExample" >
+    delete from yt_money_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mrbt.yeston.web.model.YtMoneyFlow" >
+    insert into yt_money_flow (id, car_loan_id, task_name, 
+      u_id, from_account, from_account_name, 
+      from_account_bank_name, to_account, to_account_name, 
+      to_account_bank_name, money, add_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{carLoanId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, 
+      #{uId,jdbcType=INTEGER}, #{fromAccount,jdbcType=VARCHAR}, #{fromAccountName,jdbcType=VARCHAR}, 
+      #{fromAccountBankName,jdbcType=VARCHAR}, #{toAccount,jdbcType=VARCHAR}, #{toAccountName,jdbcType=VARCHAR}, 
+      #{toAccountBankName,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{addTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mrbt.yeston.web.model.YtMoneyFlow" >
+    insert into yt_money_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="carLoanId != null" >
+        car_loan_id,
+      </if>
+      <if test="taskName != null" >
+        task_name,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="fromAccount != null" >
+        from_account,
+      </if>
+      <if test="fromAccountName != null" >
+        from_account_name,
+      </if>
+      <if test="fromAccountBankName != null" >
+        from_account_bank_name,
+      </if>
+      <if test="toAccount != null" >
+        to_account,
+      </if>
+      <if test="toAccountName != null" >
+        to_account_name,
+      </if>
+      <if test="toAccountBankName != null" >
+        to_account_bank_name,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="carLoanId != null" >
+        #{carLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="fromAccount != null" >
+        #{fromAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAccountName != null" >
+        #{fromAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAccountBankName != null" >
+        #{fromAccountBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccount != null" >
+        #{toAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccountName != null" >
+        #{toAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccountBankName != null" >
+        #{toAccountBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mrbt.yeston.web.model.YtMoneyFlowExample" resultType="java.lang.Integer" >
+    select count(*) from yt_money_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yt_money_flow
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carLoanId != null" >
+        car_loan_id = #{record.carLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskName != null" >
+        task_name = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uId != null" >
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromAccount != null" >
+        from_account = #{record.fromAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromAccountName != null" >
+        from_account_name = #{record.fromAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromAccountBankName != null" >
+        from_account_bank_name = #{record.fromAccountBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAccount != null" >
+        to_account = #{record.toAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAccountName != null" >
+        to_account_name = #{record.toAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAccountBankName != null" >
+        to_account_bank_name = #{record.toAccountBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yt_money_flow
+    set id = #{record.id,jdbcType=VARCHAR},
+      car_loan_id = #{record.carLoanId,jdbcType=VARCHAR},
+      task_name = #{record.taskName,jdbcType=VARCHAR},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      from_account = #{record.fromAccount,jdbcType=VARCHAR},
+      from_account_name = #{record.fromAccountName,jdbcType=VARCHAR},
+      from_account_bank_name = #{record.fromAccountBankName,jdbcType=VARCHAR},
+      to_account = #{record.toAccount,jdbcType=VARCHAR},
+      to_account_name = #{record.toAccountName,jdbcType=VARCHAR},
+      to_account_bank_name = #{record.toAccountBankName,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DOUBLE},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mrbt.yeston.web.model.YtMoneyFlow" >
+    update yt_money_flow
+    <set >
+      <if test="carLoanId != null" >
+        car_loan_id = #{carLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="fromAccount != null" >
+        from_account = #{fromAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAccountName != null" >
+        from_account_name = #{fromAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAccountBankName != null" >
+        from_account_bank_name = #{fromAccountBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccount != null" >
+        to_account = #{toAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccountName != null" >
+        to_account_name = #{toAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccountBankName != null" >
+        to_account_bank_name = #{toAccountBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mrbt.yeston.web.model.YtMoneyFlow" >
+    update yt_money_flow
+    set car_loan_id = #{carLoanId,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      u_id = #{uId,jdbcType=INTEGER},
+      from_account = #{fromAccount,jdbcType=VARCHAR},
+      from_account_name = #{fromAccountName,jdbcType=VARCHAR},
+      from_account_bank_name = #{fromAccountBankName,jdbcType=VARCHAR},
+      to_account = #{toAccount,jdbcType=VARCHAR},
+      to_account_name = #{toAccountName,jdbcType=VARCHAR},
+      to_account_bank_name = #{toAccountBankName,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

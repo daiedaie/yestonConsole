@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mrbt.yeston.web.mapper.YtCarLoanLogMapper" >
+  <resultMap id="BaseResultMap" type="com.mrbt.yeston.web.model.YtCarLoanLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="oper_info" property="operInfo" jdbcType="VARCHAR" />
+    <result column="oper_time" property="operTime" jdbcType="DATE" />
+    <result column="oper_user_id" property="operUserId" jdbcType="INTEGER" />
+    <result column="car_loan_id" property="carLoanId" jdbcType="VARCHAR" />
+    <result column="voucher" property="voucher" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, status, oper_info, oper_time, oper_user_id, car_loan_id, voucher
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mrbt.yeston.web.model.YtCarLoanLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yt_car_loan_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,status,oper_info,oper_time,oper_user_id,car_loan_id,voucher
+    from yt_car_loan_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yt_car_loan_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mrbt.yeston.web.model.YtCarLoanLogExample" >
+    delete from yt_car_loan_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mrbt.yeston.web.model.YtCarLoanLog" >
+    insert into yt_car_loan_log (id, status, oper_info, 
+      oper_time, oper_user_id, car_loan_id, 
+      voucher)
+    values (#{id,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{operInfo,jdbcType=VARCHAR}, 
+      #{operTime,jdbcType=DATE}, #{operUserId,jdbcType=INTEGER}, #{carLoanId,jdbcType=VARCHAR}, 
+      #{voucher,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mrbt.yeston.web.model.YtCarLoanLog" >
+    insert into yt_car_loan_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="operInfo != null" >
+        oper_info,
+      </if>
+      <if test="operTime != null" >
+        oper_time,
+      </if>
+      <if test="operUserId != null" >
+        oper_user_id,
+      </if>
+      <if test="carLoanId != null" >
+        car_loan_id,
+      </if>
+      <if test="voucher != null" >
+        voucher,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operInfo != null" >
+        #{operInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="operTime != null" >
+        #{operTime,jdbcType=DATE},
+      </if>
+      <if test="operUserId != null" >
+        #{operUserId,jdbcType=INTEGER},
+      </if>
+      <if test="carLoanId != null" >
+        #{carLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="voucher != null" >
+        #{voucher,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mrbt.yeston.web.model.YtCarLoanLogExample" resultType="java.lang.Integer" >
+    select count(*) from yt_car_loan_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yt_car_loan_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.operInfo != null" >
+        oper_info = #{record.operInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operTime != null" >
+        oper_time = #{record.operTime,jdbcType=DATE},
+      </if>
+      <if test="record.operUserId != null" >
+        oper_user_id = #{record.operUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.carLoanId != null" >
+        car_loan_id = #{record.carLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voucher != null" >
+        voucher = #{record.voucher,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yt_car_loan_log
+    set id = #{record.id,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      oper_info = #{record.operInfo,jdbcType=VARCHAR},
+      oper_time = #{record.operTime,jdbcType=DATE},
+      oper_user_id = #{record.operUserId,jdbcType=INTEGER},
+      car_loan_id = #{record.carLoanId,jdbcType=VARCHAR},
+      voucher = #{record.voucher,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mrbt.yeston.web.model.YtCarLoanLog" >
+    update yt_car_loan_log
+    <set >
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operInfo != null" >
+        oper_info = #{operInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="operTime != null" >
+        oper_time = #{operTime,jdbcType=DATE},
+      </if>
+      <if test="operUserId != null" >
+        oper_user_id = #{operUserId,jdbcType=INTEGER},
+      </if>
+      <if test="carLoanId != null" >
+        car_loan_id = #{carLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="voucher != null" >
+        voucher = #{voucher,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mrbt.yeston.web.model.YtCarLoanLog" >
+    update yt_car_loan_log
+    set status = #{status,jdbcType=INTEGER},
+      oper_info = #{operInfo,jdbcType=VARCHAR},
+      oper_time = #{operTime,jdbcType=DATE},
+      oper_user_id = #{operUserId,jdbcType=INTEGER},
+      car_loan_id = #{carLoanId,jdbcType=VARCHAR},
+      voucher = #{voucher,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

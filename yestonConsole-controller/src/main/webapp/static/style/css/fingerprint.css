@@ -1,0 +1,107 @@
+.digital-div {
+	margin-top: 10px;
+}
+
+.input_div {
+	width: 500px;
+	height: 30px;
+}
+
+.input_erci{
+	width: 500px;
+	height: 30px;
+}
+
+.input_erci span{
+	display: block;
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	font-family: inherit;
+	color: #FF0000;
+	float: left;
+	margin-right: 5px;
+}
+
+.input_div span {
+	display: block;
+	height: 30px;
+	line-height: 25px;
+	font-size: 16px;
+	font-family: inherit;
+	color: #666666;
+	float: left;
+	margin-right: 10px;
+}
+
+#finger_button{
+	width: 580px;
+	height: 45px;
+}
+
+#finger_button a {
+	display: block;
+	width: 180px;
+	height: 38px;
+	float: left;
+	margin: 5px 10px 5px 0;
+}
+
+#input_finger {
+	background: url('/static/style/images/fingerprint-io.png') no-repeat;
+}
+
+#input_finger:active {
+	background: url('/static/style/images/fingerprint-io-active.png')
+		no-repeat;
+}
+
+#input_finger:hover {
+	background: url('/static/style/images/fingerprint-io-active.png')
+		no-repeat;
+}
+
+#dis_finger {
+	background: url('/static/style/images/fingerprint-dk.png') no-repeat;
+}
+
+#dis_finger:active {
+	background: url('/static/style/images/fingerprint-dk-active.png')
+		no-repeat;
+}
+
+#dis_finger:hover {
+	background: url('/static/style/images/fingerprint-dk-active.png')
+		no-repeat;
+}
+
+#save_finger {
+	background: url('/static/style/images/fingerprint-yz.png') no-repeat;
+}
+
+#save_finger:active {
+	background: url('/static/style/images/fingerprint-yz-active.png') no-repeat;
+}
+
+#save_finger:hover {
+	background: url('/static/style/images/fingerprint-yz-active.png') no-repeat;
+}
+
+#object_div{
+	display: none;
+}
+
+#info_heard span{
+	display: block;
+	width: 180px;
+	height: 25px;
+	color: #f98751;
+}
+
+#info p{
+	color: #c0c0c0;
+}
+
+#main_div {
+	margin: 50px 0 0 80px;
+}
